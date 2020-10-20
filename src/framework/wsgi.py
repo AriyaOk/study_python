@@ -6,7 +6,7 @@ def application(environ, start_response):
     if url == "/xxx/":
         status = "200 OK"
         headers = {
-            "Content-type": "text/css", #mimetypes.guess_type
+            "Content-type": "text/css",  # mimetypes.guess_type
         }
         payload = read_from_styles_css()
         start_response(status, list(headers.items()))
@@ -50,6 +50,7 @@ def read_from_styles_css():
 
     payload = payload.encode()
     return payload
+
 
 def read_from_styles_png():
     path = dir_static / "logo.png"
