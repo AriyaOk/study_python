@@ -11,4 +11,3 @@ Visit http://{host}:{port}
 """
 
 dir_static = (Path(__file__).parent.parent / "static").resolve()
-
