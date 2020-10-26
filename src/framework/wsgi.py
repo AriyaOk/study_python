@@ -11,7 +11,9 @@ def application(environ, start_response):
         "/logo.png/": "ariyaOk.gif",
         "/": "index.html",
     }
-    file_name = file_names.get(url,)
+    file_name = file_names.get(
+        url,
+    )
 
     if file_name is not None:
         status = "200 OK"
@@ -39,7 +41,7 @@ def read_static(name_file: str) -> bytes:
     return payload
 
 
-def generate_404(environ) ->bytes:
+def generate_404(environ) -> bytes:
     url = environ["PATH_INFO"]
     pin = random.randint(1, 1000)
 
