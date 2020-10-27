@@ -6,28 +6,18 @@ from framework.consts import dir_static
 
 def application(environ, start_response):
     url = environ["PATH_INFO"]
-    file_names = {
-        "/xxx/": "styles.css",
-        "/logo.png/": "ariyaOk.gif",
-        "/": "index.html",
-    }
-    file_name = file_names.get(
-        url,
-    )
 
-    if file_name is not None:
-        status = "200 OK"
-        type_file_ = mimetypes.guess_type(file_name)[0]
-        headers = {
-            "Content-type": type_file_,
-        }
-        payload = read_static(file_name)
-    else:
-        status = "404 not found"
-        headers = {
-            "Content-type": "text/plain",
-        }
-        payload = generate_404(environ)
+    handlers = {
+        "/": handle_index,
+    }
+
+    handler = handlers.get(url, generate_404)
+
+    status = "200 OK"
+    headers = {
+        "Content-type": "text/html",
+    }
+    payload = handler(environ)
 
     start_response(status, list(headers.items()))
     yield payload
@@ -45,6 +35,16 @@ def generate_404(environ) -> bytes:
     url = environ["PATH_INFO"]
     pin = random.randint(1, 1000)
 
-    msg = f"Error! Your path: {url}. Pin: {pin}"
-
+    msg_str = f"Error! Your path: {url}. Pin: {pin}"
+    base_html = read_static("_base.html").decode()
+    msg = base_html.format(body_=msg_str)
     return msg.encode()
+
+
+def handle_index(_environ) -> bytes:
+    base_html = read_static("_base.html").decode()
+    index_html = read_static("index.html").decode()
+
+    result = base_html.format(body_=index_html)
+
+    return result.encode()
