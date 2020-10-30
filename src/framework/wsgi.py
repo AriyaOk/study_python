@@ -1,7 +1,7 @@
+from handlers import handle_index
+from handlers import handle_logo
+from handlers import handle_style
 from handlers.handler_error import handler_404
-from handlers.handler_index import handle_index
-from handlers.handler_logo import handle_logo
-from handlers.handler_style import handle_style
 
 handlers_ = {
     "/logo.png/": handle_logo,
