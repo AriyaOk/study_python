@@ -1,7 +1,7 @@
 import random
 
-from framework.utils import read_static
 from framework.types import Response_T_
+from framework.utils import read_static
 
 
 def handler_404(environ):

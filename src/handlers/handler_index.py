@@ -15,9 +15,8 @@ def handle_index(_environ) -> Response_T_:
     }
 
     response = Response_T_(
-        status = status,
-        headers = headers,
-        payload = result,
+        status=status,
+        headers=headers,
+        payload=result,
     )
     return response
-
