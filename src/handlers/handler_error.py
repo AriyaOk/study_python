@@ -1,6 +1,7 @@
 import random
 
 from framework.utils import read_static
+from framework.types import Response_T_
 
 
 def handler_404(environ):
@@ -17,4 +18,11 @@ def handler_404(environ):
     headers = {
         "Content-type": "text/html",
     }
-    return status, headers, msg
+
+    response = Response_T_(
+        status=status,
+        headers=headers,
+        payload=msg,
+    )
+
+    return response

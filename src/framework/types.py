@@ -1,3 +1,6 @@
-from typing import Tuple
+from typing import NamedTuple
 
-Response_Tuple = Tuple[str, dict, bytes]
+class Response_T_(NamedTuple):
+    status: str
+    headers: dict
+    payload: bytes
