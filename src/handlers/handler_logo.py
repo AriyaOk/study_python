@@ -1,6 +1,7 @@
 import mimetypes
 
-from framework.utils import T, read_static
+from framework.utils import read_static
+from framework.utils import T
 
 filename_logo = "ariyaOk.gif"
 

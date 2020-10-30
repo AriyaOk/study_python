@@ -20,5 +20,3 @@ def application(environ, start_response):
 
     start_response(status, list(headers.items()))
     yield payload
-
-

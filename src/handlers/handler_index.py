@@ -1,4 +1,5 @@
-from framework.utils import T, read_static
+from framework.utils import read_static
+from framework.utils import T
 
 
 def handle_index(_environ) -> T:
