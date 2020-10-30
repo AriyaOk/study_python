@@ -16,7 +16,6 @@ def application(environ, start_response):
     handler = handlers_.get(url, handler_404)
 
     status, headers, payload = handler(environ)
-    assert isinstance(payload, bytes), url
 
     start_response(status, list(headers.items()))
     yield payload
