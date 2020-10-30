@@ -1,12 +1,13 @@
 import mimetypes
 
+from framework.types import RequestT
 from framework.types import ResponseT
 from framework.utils import read_static
 
 filename_style = "styles.css"
 
 
-def handle_style(_environ) -> ResponseT:
+def handle_style(request: RequestT) -> ResponseT:
     payload = read_static(filename_style)
 
     status = "200 OK"

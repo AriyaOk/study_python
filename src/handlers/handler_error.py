@@ -1,11 +1,12 @@
 import random
 
+from framework.types import RequestT
 from framework.types import ResponseT
 from framework.utils import read_static
 
 
-def handler_404(environ):
-    url = environ["PATH_INFO"]
+def handler_404(request: RequestT) -> ResponseT:
+    url = request.path
     pin = random.randint(1, 1000)
 
     msg_str = f"Error! Your path: {url}. Pin: {pin}"
