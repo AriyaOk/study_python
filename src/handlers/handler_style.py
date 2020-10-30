@@ -1,12 +1,12 @@
 import mimetypes
 
+from framework.types import Response_Tuple
 from framework.utils import read_static
-from framework.utils import T
 
 filename_style = "styles.css"
 
 
-def handle_style(_environ) -> T:
+def handle_style(_environ) -> Response_Tuple:
     payload = read_static(filename_style)
 
     status = "200 OK"

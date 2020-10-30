@@ -1,8 +1,8 @@
+from framework.types import Response_Tuple
 from framework.utils import read_static
-from framework.utils import T
 
 
-def handle_index(_environ) -> T:
+def handle_index(_environ) -> Response_Tuple:
     base_html = read_static("_base.html").decode()
     index_html = read_static("index.html").decode()
 
