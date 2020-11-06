@@ -10,19 +10,19 @@ def handler_404(request: RequestT) -> ResponseT:
     pin_my = random.randint(1, 1000)
 
     teg_str_table = """<tr>
-    <th>{key[0]}1</th>
-    <th>{key[1]}</th>
+    <th>{key}</th>
+    <th>{value}</th>
    </tr>
     """
     teg_table = ""
     for key in request.headers:
         value = request.headers[key]
-        teg_table = teg_table + teg_str_table.format(key=[key, value])
+        teg_table = teg_table + teg_str_table.format(key=key, value=value)
 
     # msg_str = f"Error! Your path: {url}. Pin: {pin}"
     base_html = read_static("_base.html").decode()
     msg_html = read_static("table.html").decode()
-    msg_html = msg_html.format(dinamic=[url_my, pin_my, teg_table])
+    msg_html = msg_html.format(url=url_my, pin=pin_my, teg_table=teg_table)
 
     result = base_html.format(body_=msg_html)
     result = result.encode()
