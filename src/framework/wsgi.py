@@ -1,11 +1,11 @@
 from urllib.parse import parse_qs
 
 from framework.types import RequestT
+from handlers import handle_hello
 from handlers import handle_index
 from handlers import handle_logo
 from handlers import handle_style
 from handlers import handler_404
-from handlers import handle_hello
 from handlers import handler_500
 from handlers.test_error import make_error
 
