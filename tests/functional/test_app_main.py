@@ -23,7 +23,7 @@ def validate_content(page: MainPage):
     assert page.h1.tag_name == "h1"
     assert page.h1.text == "Z37 study project"
     assert page.p.tag_name == "p"
-    # assert page.p.text == "This is a study project."
+    assert page.p.text == "This is a study project."
 
     html = page.html
     assert "<hr>" in html
