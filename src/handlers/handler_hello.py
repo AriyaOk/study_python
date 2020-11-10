@@ -4,10 +4,17 @@ from framework.utils import read_static
 
 
 def handle_hello(request: RequestT) -> ResponseT:
-    name = (request.query.get("name") or [None])[0]
+    name = (request.form_data.get("name") or [None])[0]
+    adress = (request.form_data.get("adress") or [None])[0]
     base_html = read_static("_base.html").decode()
     index_html = read_static("hello_html.html").decode()  # f"<h1>Hello {name}</h1>"
-    index_html = index_html.format(name_hader=name or "anon", name_value=name or "")
+
+    index_html = index_html.format(
+        name_hader=name or "anon",
+        name_value=name or "",
+        adress_hader=adress or "anywhere",
+        adress_value=adress or "",
+    )
     result = base_html.format(body_=index_html)
     result = result.encode()
 

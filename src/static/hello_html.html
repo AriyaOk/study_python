@@ -1,7 +1,14 @@
 <h2>Hello {name_hader} !!!</h2>
+<h2>You in {adress_hader} !!!</h2>
 
-<form>
-    <label for="name_id" > Name:</label>
-    <input id="name_id" type="text" name="name" placeholder="Who are you" value="{name_value}">
-    <button>Send</button>
+<form method="post">
+    <p>
+        <label for="name_id" > Name:</label>
+        <input id="name_id" type="text" name="name" placeholder="Who are you" value="{name_value}">
+    </p>
+    <p>
+        <label for="adress_id" > Addres:</label>
+        <input id="adress_id" type="text" name="adress" placeholder="Where are you" value="{adress_value}">
+    </p>
+    <button>Hello</button>
 </form>
