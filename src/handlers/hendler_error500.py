@@ -8,6 +8,7 @@ from framework.utils import read_static
 
 def handler_500(_request: RequestT = None) -> ResponseT:
     error_class, error, tb = sys.exc_info()
+
     filenames = "".join(
         f"""<p>File <a href="http://localhost:8000/s/{frame.f_code.co_filename}">{frame.f_code.co_filename}</a>, line {lineno}</p>"""
         for frame, lineno in traceback.walk_tb(tb)

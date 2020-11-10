@@ -1,3 +1,5 @@
+from urllib.parse import parse_qs
+
 from framework.consts import dir_static
 
 
@@ -7,3 +9,20 @@ def read_static(name_file: str) -> bytes:
         payload = fp.read()
 
     return payload
+
+
+def get_form_data(body: bytes) -> dict:
+    qs = body.decode()
+    form_data = parse_qs(qs or "")
+
+    return form_data
+
+
+def get_body(environ: dict) -> bytes:
+
+    fp = environ["wsgi.input"]
+    ln = int(environ["CONTENT_LENGTH"] or 0)
+    if ln == 0:
+        return b""
+    body = fp.read(ln)
+    return body

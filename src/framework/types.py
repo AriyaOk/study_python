@@ -15,3 +15,5 @@ class RequestT:
     path: str
     headers: dict
     query: Optional[dict] = None
+    form_data: Optional[dict] = None
+    body: Optional[bytes] = None
