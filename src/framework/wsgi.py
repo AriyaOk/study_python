@@ -1,8 +1,10 @@
 from urllib.parse import parse_qs
 
+from framework.db import find_user
 from framework.types import RequestT
 from framework.utils import get_body
 from framework.utils import get_form_data
+from framework.utils import get_user_id
 from handlers import handle_hello
 from handlers import handle_index
 from handlers import handle_logo
@@ -33,6 +35,9 @@ def application(environ, start_response):
 
         request_headers = {key[5:]: environ[key] for key in request_key_http}
 
+        user_id = get_user_id(request_headers)
+        user = find_user(user_id)
+
         request = RequestT(
             method=environ["REQUEST_METHOD"],
             path=path,
@@ -40,6 +45,7 @@ def application(environ, start_response):
             query=parse_qs(environ.get("QUERY_STRING") or ""),
             body=body,
             form_data=form_data,
+            user=user,
         )
         response = handler(request)
     except:
