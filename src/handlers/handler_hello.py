@@ -1,11 +1,8 @@
-from framework import settings
-from framework.consts import file_user_db
-from framework.consts import USER_COOKIE
-from framework.consts import USER_TTL
+from framework.db import del_user
 from framework.db import save_user
 from framework.types import RequestT
 from framework.types import ResponseT
-from framework.types import UserT
+from framework.utils import cookies_headers
 from framework.utils import read_static
 
 
@@ -72,15 +69,24 @@ def handle_hello_post(request: RequestT) -> ResponseT:
 
     save_user(request.user)
     status = "302 OK"
-    headers = {
-        "Location": "/h",
-        "Set-Cookie": (
-            f"{USER_COOKIE}={request.user.id};"
-            f" Domain={settings.HOST};"
-            f" HttpOnly;"
-            f" Max-Age={USER_TTL.total_seconds()}"
-        ),
-    }
+
+    headers = cookies_headers(request.user.id)
+
+    response = ResponseT(
+        status=status,
+        headers=headers,
+        payload=b"",
+    )
+    return response
+
+
+def handle_hello_del(request: RequestT) -> ResponseT:
+    assert request.method == "POST"
+
+    del_user(request.user)
+    status = "302 OK"
+
+    headers = cookies_headers(request.user.id, True)
 
     response = ResponseT(
         status=status,

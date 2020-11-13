@@ -1,9 +1,12 @@
+from http.cookies import SimpleCookie
 from typing import Dict
 from typing import Optional
 from urllib.parse import parse_qs
 
+from framework import settings
 from framework.consts import dir_static
 from framework.consts import USER_COOKIE
+from framework.consts import USER_TTL
 
 
 def read_static(name_file: str) -> bytes:
@@ -32,7 +35,34 @@ def get_body(environ: dict) -> bytes:
 
 
 def get_user_id(headers: Dict) -> Optional[str]:
-    cookies = parse_qs(headers.get("COOKIE", ""))
-    user_id = cookies.get(USER_COOKIE, [None])[0]
+    cookies_heders = headers.get("COOKIE", "")
+    cookies = SimpleCookie(cookies_heders)  # parse_qs(headers.get("COOKIE", ""))
+    if USER_COOKIE not in cookies:
+        return None
+
+    user_id = cookies[USER_COOKIE].value
+
+    # user_id = cookies.get(USER_COOKIE, [None])[0]
 
     return user_id
+
+
+def cookies_headers(user_id, del_coocies=False):
+    cookies = SimpleCookie()
+
+    cookies[USER_COOKIE] = user_id
+    cookie = cookies[USER_COOKIE]
+    cookie["Domain"] = settings.HOST
+    cookie["Path"] = "/"
+    cookie["HttpOnly"] = True
+    if del_coocies == True:
+        cookie["Max-Age"] = 0
+    else:
+        cookie["Max-Age"] = USER_TTL.total_seconds()
+
+    cookies_header = str(cookies).split(":")[1].strip()
+    headers = {
+        "Location": "/h",
+        "Set-Cookie": cookies_header,
+    }
+    return headers
