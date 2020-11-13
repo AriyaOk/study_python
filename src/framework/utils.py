@@ -1,6 +1,9 @@
+from typing import Dict
+from typing import Optional
 from urllib.parse import parse_qs
 
 from framework.consts import dir_static
+from framework.consts import USER_COOKIE
 
 
 def read_static(name_file: str) -> bytes:
@@ -26,3 +29,10 @@ def get_body(environ: dict) -> bytes:
         return b""
     body = fp.read(ln)
     return body
+
+
+def get_user_id(headers: Dict) -> Optional[str]:
+    cookies = parse_qs(headers.get("COOKIE", ""))
+    user_id = cookies.get(USER_COOKIE, [None])[0]
+
+    return user_id
