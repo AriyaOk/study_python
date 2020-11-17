@@ -33,12 +33,14 @@ def handle_hello_get(request: RequestT) -> ResponseT:
 
     base_html = read_static("_base.html").decode()
     index_html = read_static("hello_html.html").decode()  # f"<h1>Hello {name}</h1>"
+    clock_html = read_static("clock.html").decode()
 
     index_html = index_html.format(
         name_hader=request.user.name or "anon",
         name_value=request.user.name or "",
         adress_hader=request.user.address or "anywhere",
         adress_value=request.user.address or "",
+        j = clock_html,
     )
     result = base_html.format(body_=index_html)
     result = result.encode()
