@@ -70,7 +70,11 @@ def handle_hello_post(request: RequestT) -> ResponseT:
     save_user(request.user)
     status = "302 OK"
 
-    headers = cookies_headers(request.user.id)
+    cookies_header = cookies_headers(request.user.id)
+    headers = {
+        "Location": "/h",
+        "Set-Cookie": cookies_header,
+    }
 
     response = ResponseT(
         status=status,
@@ -86,7 +90,11 @@ def handle_hello_del(request: RequestT) -> ResponseT:
     del_user(request.user)
     status = "302 OK"
 
-    headers = cookies_headers(request.user.id, True)
+    cookies_header = cookies_headers(request.user.id, True)
+    headers = {
+        "Location": "/h",
+        "Set-Cookie": cookies_header,
+    }
 
     response = ResponseT(
         status=status,

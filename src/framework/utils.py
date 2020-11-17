@@ -55,14 +55,11 @@ def cookies_headers(user_id, del_coocies=False):
     cookie["Domain"] = settings.HOST
     cookie["Path"] = "/"
     cookie["HttpOnly"] = True
-    if del_coocies == True:
+    if del_coocies:
         cookie["Max-Age"] = 0
     else:
         cookie["Max-Age"] = USER_TTL.total_seconds()
 
-    cookies_header = str(cookies).split(":")[1].strip()
-    headers = {
-        "Location": "/h",
-        "Set-Cookie": cookies_header,
-    }
-    return headers
+    cookie = str(cookies).split(":")[1].strip()
+
+    return cookie
