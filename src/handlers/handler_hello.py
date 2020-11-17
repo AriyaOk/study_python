@@ -40,7 +40,7 @@ def handle_hello_get(request: RequestT) -> ResponseT:
         name_value=request.user.name or "",
         adress_hader=request.user.address or "anywhere",
         adress_value=request.user.address or "",
-        j = clock_html,
+        j=clock_html,
     )
     result = base_html.format(body_=index_html)
     result = result.encode()
