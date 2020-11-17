@@ -27,7 +27,7 @@ def get_form_data(body: bytes) -> dict:
 def get_body(environ: dict) -> bytes:
 
     fp = environ["wsgi.input"]
-    ln = int(environ["CONTENT_LENGTH"] or 0)
+    ln = int(environ.get("CONTENT_LENGTH") or 0)
     if ln == 0:
         return b""
     body = fp.read(ln)
