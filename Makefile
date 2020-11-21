@@ -19,7 +19,7 @@ test:
 .PHONY: run
 run:
 	$(call log, starting local web server)
-	$(PYTHON) -m src/manage.py runserver
+	$(PYTHON) src/manage.py runserver
 
 
 .PHONY: run-prod

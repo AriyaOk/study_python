@@ -14,7 +14,8 @@ from pathlib import Path
 from dynaconf import settings as _ds
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
+DIR_SRC = Path(__file__).resolve().parent.parent
+DIR_PROJECT = DIR_SRC / "project"
 
 
 # Quick-start development settings - unsuitable for production
@@ -59,7 +60,7 @@ ROOT_URLCONF = "project.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
+        "DIRS": [DIR_PROJECT / "templates"],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -81,7 +82,7 @@ WSGI_APPLICATION = "project.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+        "NAME": DIR_SRC / "db.sqlite3",
     }
 }
 
