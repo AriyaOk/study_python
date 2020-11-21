@@ -1,0 +1,9 @@
+h1 {
+    color: orange;
+}
+body {
+  background-color: midnightblue;
+  color: orange;
+  font-size: var(--font-size);
+  margin: 0;
+}
