@@ -1,0 +1,19 @@
+{% load static %}
+<!DOCTYPE html>
+        <html>
+        <head>
+          <title>Z37</title>
+          <meta charset="utf-8">
+          <link rel="stylesheet" href="{% static 'styles/styles.css' %}">
+            <link rel="icon" type="image/gif" href="{% static 'images/ariyaOk.gif' %}">
+        </head>
+        <body>
+        <h1>Z37 study project</h1>
+        <p align='center'>This is a study project.</p>
+        <nav>
+            <p><a href="/"><span>/</span></a></p>
+        </nav>
+        <hr>
+        {% block main %}{% endblock %}
+        </body>
+       </html>
