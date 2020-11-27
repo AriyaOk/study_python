@@ -1,11 +1,10 @@
 {% extends "_base.html" %}
-{% load static %}
 
 {% block main %}
 <h2>Hello {{name_header}} !!!</h2>
 <h2>You in {{address_header}} !!!</h2>
 
-<form method="post" action="greet">
+<form method="post" action="/h/hello/">
     <p>
         <label for="name_id" > Name:</label>
         <input id="name_id" type="text" name="name" placeholder="Who are you" value="{{name_value}}">
@@ -15,7 +14,7 @@
         <input id="address_id" type="text" name="address" placeholder="Where are you" value="{{address_value}}">
     </p>
     <button id="submit_id" type="submit">Send</button>
-    <button id="reset_id_" type="submit" formaction="h_del">Reset</button>
+    <button id="reset_id_" type="submit" formaction="/h/h_del/">Reset</button>
     {% csrf_token %}
 </form>
 {% endblock %}

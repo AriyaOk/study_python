@@ -30,6 +30,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    # ----my app ------
     "application.landing.apps.LandingConfig",
     "application.hello.apps.HelloConfig",
 ]
