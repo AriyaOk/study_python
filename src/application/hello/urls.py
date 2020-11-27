@@ -1,11 +1,10 @@
 from django.urls import path
 
-from application.hello.views import view_hello_greet
-from application.hello.views import view_hello_index
-from application.hello.views import view_hello_reset
+from application.hello import views
+
 
 urlpatterns = [
-    path("", view_hello_index),
-    path("hello/", view_hello_greet),
-    path("h_del/", view_hello_reset),
+    path("", views.view_hello_index),
+    path("hello/", views.view_hello_greet),
+    path("h_del/", views.view_hello_reset),
 ]
