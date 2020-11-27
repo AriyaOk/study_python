@@ -7,11 +7,12 @@
           <link rel="stylesheet" href="{% static 'styles/styles.css' %}">
             <link rel="icon" type="image/gif" href="{% static 'images/ariyaOk.gif' %}">
         </head>
-        <body>
+        <body link="red" vlink="#cecece" alink="#ff0000" bgcolor="black">
         <h1>Z37 study project</h1>
         <p align='center'>This is a study project.</p>
         <nav>
             <p><a href="/"><span>/</span></a></p>
+            <p><a href="/h/"><span>/hello/</span></a></p>
         </nav>
         <hr>
         {% block main %}{% endblock %}
