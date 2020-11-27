@@ -1,6 +1,8 @@
+import os
 from pathlib import Path
 
-from dynaconf import settings as _ds
+import dj_database_url
+from dynaconf import settings as dyn
 
 _this_file = Path(__file__).resolve()
 
@@ -10,14 +12,14 @@ DIR_SRC = DIR_PROJECT.parent.resolve()
 
 DIR_REPO = DIR_SRC.parent.resolve()
 
-SECRET_KEY = _ds.SECRET_KEY
+SECRET_KEY = dyn.SECRET_KEY
 
-DEBUG = _ds.MODE_DEBUG
+DEBUG = dyn.MODE_DEBUG
 
 ALLOWED_HOSTS = [
     "localhost",
     "127.0.0.1",
-    _ds.HOST,
+    dyn.HOST,
 ]
 
 
@@ -70,12 +72,9 @@ WSGI_APPLICATION = "project.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": DIR_SRC / "db.sqlite3",
-    }
-}
+DATABASE_URL = os.getenv("DATABASE_URL", dyn.DATABASE_URL)
+
+DATABASES = {"default": dj_database_url.parse(DATABASE_URL)}
 
 
 # Password validation
