@@ -40,4 +40,5 @@ ci:
 heroku:
   HOST: "study-python-ariyaok.herokuapp.com"
   MODE_DEBUG: false
+  VENV_SYNTHETIC: true
 
