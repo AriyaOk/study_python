@@ -1,6 +1,32 @@
 {% extends "_base.html" %}
 
 {% block main %}
+    <p>
+        <form method="post" action="/b/new/">
+            <p>
+                <label for="title_id" > Title:</label>
+                <input id="title_id" type="text" name="title" ">
+            </p>
+            <p>
+                <label> Content:</label>
+                <textarea name="content"></textarea>
+            </p>
+            <p>
+                <button id="submit_id" type="submit">Send</button>
+            </p>
+        {% csrf_token %}
+        </form>
+    </p>
+
+    <p>
+        <form method="post" action="/b/dell_all_post/">
+            <p>
+                <button id="del_all_id" type="submit">Del All</button>
+            </p>
+        {% csrf_token %}
+        </form>
+    </p>
+
     <h1>All posts</h1>
         {% for post  in object_list %}
         <article>

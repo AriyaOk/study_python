@@ -12,3 +12,19 @@ def index(request):
     }
     response = render(request, "blog/index.html", context=context)
     return response
+
+def create_new(request: HttpRequest) -> HttpResponse:
+    title = request.POST.get("title")
+    content = request.POST.get("content")
+
+
+    p1 = BlogPost(title=title,content=content)
+    p1.save()
+
+
+    return redirect("/b/")
+
+def del_all(request: HttpRequest) -> HttpResponse:
+    BlogPost.objects.all().delete()
+
+    return redirect("/b/")

@@ -1,7 +1,9 @@
 from django.urls import path
 
-from application.blog.views import index
+from application.blog import views
 
 urlpatterns = [
-    path("", index),
+    path("", views.index),
+    path("new/", views.create_new),
+    path("dell_all_post/", views.del_all),
 ]
