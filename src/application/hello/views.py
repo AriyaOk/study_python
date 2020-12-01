@@ -2,7 +2,7 @@ from django.http import HttpRequest
 from django.http import HttpResponse
 from django.shortcuts import redirect
 from django.shortcuts import render
-
+#from django.contrib.sessions.models import Session
 
 def view_hello_index(request: HttpRequest) -> HttpResponse:
 
@@ -35,5 +35,10 @@ def view_hello_greet(request: HttpRequest) -> HttpResponse:
 
 
 def view_hello_reset(request: HttpRequest) -> HttpResponse:
+
     request.session.clear()
+    #session_key = request.session.session_key
+    #if session_key != None:
+    #    session = Session.objects.get(session_key=session_key)
+    #    Session.objects.filter(session_key=session).delete()
     return redirect("/h/")
