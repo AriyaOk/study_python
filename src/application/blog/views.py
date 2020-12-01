@@ -1,3 +1,5 @@
+from os.path import basename, normpath
+
 from django.http import HttpRequest
 from django.http import HttpResponse
 from django.shortcuts import redirect
@@ -8,7 +10,7 @@ from application.blog.models import BlogPost
 
 def index(request):
     context = {
-        "object_list" :  BlogPost.objects.all()
+        "object_list":  BlogPost.objects.all()
     }
     response = render(request, "blog/index.html", context=context)
     return response
@@ -26,5 +28,30 @@ def create_new(request: HttpRequest) -> HttpResponse:
 
 def del_all(request: HttpRequest) -> HttpResponse:
     BlogPost.objects.all().delete()
+
+    return redirect("/b/")
+
+def del_post(request: HttpRequest) -> HttpResponse:
+    path_info = request.path_info
+    id = basename(normpath(path_info))
+    BlogPost.objects.filter(id=id).delete()
+
+    return redirect("/b/")
+
+def like_post(request: HttpRequest) -> HttpResponse:
+    path_info = request.path_info
+    id = basename(normpath(path_info))
+    post = BlogPost.objects.get(id=id)
+    post.nr_likes += 1
+    post.save()
+
+    return redirect("/b/")
+
+def dislike_post(request: HttpRequest) -> HttpResponse:
+    path_info = request.path_info
+    id = basename(normpath(path_info))
+    post = BlogPost.objects.get(id=id)
+    post.nr_likes -= 1
+    post.save()
 
     return redirect("/b/")

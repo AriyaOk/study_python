@@ -4,11 +4,11 @@
     <p>
         <form method="post" action="/b/new/">
             <p>
-                <label for="title_id" > Title:</label>
+                <p><label for="title_id" > Title:</label><p>
                 <input id="title_id" type="text" name="title" ">
             </p>
             <p>
-                <label> Content:</label>
+                <p><label> Content:</label><p>
                 <textarea name="content"></textarea>
             </p>
             <p>
@@ -16,6 +16,7 @@
             </p>
         {% csrf_token %}
         </form>
+        <hr>
     </p>
 
     <p>
@@ -33,7 +34,17 @@
             <h2>{{ post.title }}</h2>
             <p>{{ post.content }}</p>
             <p>{{ post.crested_at }}</p>
-             <p>Likes: {{ post.nr_likes }}</p>
+            <p>Likes: {{ post.nr_likes }}</p>
+            <p>
+            <form method="post" action="/b/del_post/{{post.id}}/">
+                <p>
+                    <button type="submit">delete</button>
+                    <button type="submit" formaction="/b/like_post/{{post.id}}/">like</button>
+                    <button type="submit" formaction="/b/dislike_post/{{post.id}}/">dislike</button>
+                </p>
+        {% csrf_token %}
+        </form>
+    </p>
         </article>
         {% endfor %}
 {% endblock %}

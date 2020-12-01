@@ -1,9 +1,21 @@
 h1 {
     color: orange;
 }
+h2 {
+    color: orange;
+}
 body {
   background-color: midnightblue;
-  color: orange;
+  color: gray;
   font-size: var(--font-size);
   margin: 0;
 }
+textarea {
+    background: #447e9b; /* Цвет фона */
+    width: 30%; /* Ширина */
+    height: 100px; /* Высота */
+   }
+input {
+    background: #447e9b; /* Цвет фона */
+    width: 30%; /* Ширина */
+   }
