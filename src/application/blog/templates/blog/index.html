@@ -42,9 +42,9 @@
                     <button type="submit" formaction="/b/like_post/{{post.id}}/">like</button>
                     <button type="submit" formaction="/b/dislike_post/{{post.id}}/">dislike</button>
                 </p>
-        {% csrf_token %}
-        </form>
-    </p>
+            {% csrf_token %}
+            </form>
+            </p>
         </article>
         {% endfor %}
 {% endblock %}

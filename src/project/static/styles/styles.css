@@ -11,11 +11,11 @@ body {
   margin: 0;
 }
 textarea {
-    background: #447e9b; /* Цвет фона */
+    background: aliceblue; /* Цвет фона */
     width: 30%; /* Ширина */
     height: 100px; /* Высота */
    }
 input {
-    background: #447e9b; /* Цвет фона */
+    background: aliceblue; /* Цвет фона */
     width: 30%; /* Ширина */
    }
