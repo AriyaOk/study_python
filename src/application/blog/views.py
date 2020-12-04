@@ -9,7 +9,7 @@ from django.shortcuts import render
 from application.blog.models import BlogPost
 
 
-def index(request):
+def all_posts_view(request):
     context = {"object_list": BlogPost.objects.all()}
     response = render(request, "blog/index.html", context=context)
     return response
@@ -39,21 +39,16 @@ def del_post(request: HttpRequest) -> HttpResponse:
     return redirect("/b/")
 
 
-def like_post(request: HttpRequest) -> HttpResponse:
+def change_nr_likes(request: HttpRequest) -> HttpResponse:
     path_info = request.path_info
     id = basename(normpath(path_info))
     post = BlogPost.objects.get(id=id)
-    post.nr_likes += 1
+    if path_info.find("dislike_post")!=-1:
+        post.nr_likes -= 1
+    else:
+        post.nr_likes += 1
     post.save()
 
     return redirect("/b/")
 
 
-def dislike_post(request: HttpRequest) -> HttpResponse:
-    path_info = request.path_info
-    id = basename(normpath(path_info))
-    post = BlogPost.objects.get(id=id)
-    post.nr_likes -= 1
-    post.save()
-
-    return redirect("/b/")
