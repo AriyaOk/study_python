@@ -43,12 +43,10 @@ def change_nr_likes(request: HttpRequest) -> HttpResponse:
     path_info = request.path_info
     id = basename(normpath(path_info))
     post = BlogPost.objects.get(id=id)
-    if path_info.find("dislike_post")!=-1:
+    if path_info.find("dislike_post") != -1:
         post.nr_likes -= 1
     else:
         post.nr_likes += 1
     post.save()
 
     return redirect("/b/")
-
-
