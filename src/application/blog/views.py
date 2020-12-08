@@ -18,11 +18,11 @@ from framework.mixins import ExtendedContextMixin
 class PostForm(forms.ModelForm):
     class Meta:
         model = BlogPost
-        fields = ["title", "content" ]
-        widgets = {"title": forms.TextInput(),
-                   "content": forms.Textarea(attrs={"rows": 2}),
-                   }
-
+        fields = ["title", "content"]
+        widgets = {
+            "title": forms.TextInput(),
+            "content": forms.Textarea(attrs={"rows": 2}),
+        }
 
 
 class AllPostsView(ExtendedContextMixin, ListView):
