@@ -1,0 +1,17 @@
+<p>
+        <form method="post" action="/b/new/">
+            <p>
+                <p><label for="title_id" > TitleE:</label><p>
+                <input id="title_id" type="text" name="title" ">
+            </p>
+            <p>
+                <p><label> Content:</label><p>
+                <textarea name="content"></textarea>
+            </p>
+            <p>
+                <button id="submit_id" type="submit">Send</button>
+            </p>
+        {% csrf_token %}
+        </form>
+        <hr>
+    </p>

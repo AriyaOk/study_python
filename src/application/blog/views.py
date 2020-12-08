@@ -1,34 +1,48 @@
 from os.path import basename
 from os.path import normpath
+from typing import Dict
 
+from django import forms
 from django.http import HttpRequest
 from django.http import HttpResponse
 from django.shortcuts import redirect
 from django.shortcuts import render
+from django.views.generic import CreateView
+from django.views.generic import ListView
+from django.views.generic import RedirectView
 
 from application.blog.models import BlogPost
+from framework.mixins import ExtendedContextMixin
 
 
-def all_posts_view(request):
-    context = {"object_list": BlogPost.objects.all()}
-    response = render(request, "blog/index.html", context=context)
-    return response
+class PostForm(forms.ModelForm):
+    class Meta:
+        model = BlogPost
+        fields = ["content"]
+        widgets = {"content": forms.Textarea(attrs={"rows": 2})}
 
 
-def create_new(request: HttpRequest) -> HttpResponse:
-    title = request.POST.get("title")
-    content = request.POST.get("content")
+class AllPostsView(ExtendedContextMixin, ListView):
+    template_name = "blog/index.html"
+    model = BlogPost
 
-    p1 = BlogPost(title=title, content=content)
-    p1.save()
+    def get_extended_context(self) -> Dict:
+        context = {"form": PostForm()}
 
-    return redirect("/b/")
+        return context
 
 
-def del_all(request: HttpRequest) -> HttpResponse:
-    BlogPost.objects.all().delete()
+class NewPostView(CreateView):
+    http_method_names = ["post"]
+    model = BlogPost
+    fields = ["content", "title"]
+    success_url = "/b/"
 
-    return redirect("/b/")
+
+class DelAll(RedirectView):
+    def get_redirect_url(self, *args, **kwargs):
+        BlogPost.objects.all().delete()
+        return "/b/"
 
 
 def del_post(request: HttpRequest) -> HttpResponse:
