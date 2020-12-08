@@ -1,8 +1,16 @@
 <form method="post" action="/b/new/" class="blogpost-form">
   {% csrf_token %}
   <div class="post-form-fields">
-    {{ form.content }}
-    {{ form.title }}
+    <p>
+      <p><label> TitleE:</label><p>
+      {{ form.title }}
+     </p>
+
+    <p>
+      <p><label> Content:</label><p>
+      {{ form.content }}
+     </p>
+
   </div>
   <div class="post-form-controls">
     <button type="submit">{{ form_action_name }}</button>
