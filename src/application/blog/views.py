@@ -5,12 +5,16 @@ from typing import Dict
 from django import forms
 from django.http import HttpRequest
 from django.http import HttpResponse
-from django.shortcuts import redirect, get_object_or_404
+from django.shortcuts import get_object_or_404
+from django.shortcuts import redirect
 from django.shortcuts import render
 from django.urls import reverse_lazy
-from django.views.generic import CreateView, UpdateView, DetailView, DeleteView
+from django.views.generic import CreateView
+from django.views.generic import DeleteView
+from django.views.generic import DetailView
 from django.views.generic import ListView
 from django.views.generic import RedirectView
+from django.views.generic import UpdateView
 
 from application.blog.models import BlogPost
 from framework.mixins import ExtendedContextMixin
@@ -49,25 +53,18 @@ class DelAll(RedirectView):
         return reverse_lazy("blog:all")
 
 
-class SinglePostView(DetailView):
-    fields = ["content", "title"]
-    template_name = "blog/post.html"
-    model = BlogPost
-
 class DeletePostView(DeleteView):
     http_method_names = ["post"]
     model = BlogPost
     success_url = reverse_lazy("blog:all")
 
-class UpdatePostView(UpdateView):
+
+class PostView(UpdateView):
     model = BlogPost
     fields = ["content", "title"]
     template_name = "blog/post.html"
     success_url = reverse_lazy("blog:all")
 
-
-
-
-
-
-
+    def form_valid(self, form):
+        self.object.edited = True
+        return super().form_valid(form)
