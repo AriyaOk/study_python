@@ -5,9 +5,10 @@ from typing import Dict
 from django import forms
 from django.http import HttpRequest
 from django.http import HttpResponse
-from django.shortcuts import redirect
+from django.shortcuts import redirect, get_object_or_404
 from django.shortcuts import render
-from django.views.generic import CreateView
+from django.urls import reverse_lazy
+from django.views.generic import CreateView, UpdateView, DetailView, DeleteView
 from django.views.generic import ListView
 from django.views.generic import RedirectView
 
@@ -39,31 +40,33 @@ class NewPostView(CreateView):
     http_method_names = ["post"]
     model = BlogPost
     fields = ["content", "title"]
-    success_url = "/b/"
+    success_url = reverse_lazy("blog:index")
 
 
 class DelAll(RedirectView):
     def get_redirect_url(self, *args, **kwargs):
         BlogPost.objects.all().delete()
-        return "/b/"
+        return reverse_lazy("blog:index")
 
 
-def del_post(request: HttpRequest) -> HttpResponse:
-    path_info = request.path_info
-    id = basename(normpath(path_info))
-    BlogPost.objects.filter(id=id).delete()
+class SinglePostView(DetailView):
+    template_name = "blog/forms/post_.html"
+    model = BlogPost
 
-    return redirect("/b/")
+class DeletePostView(DeleteView):
+    http_method_names = ["post"]
+    model = BlogPost
+    success_url = reverse_lazy("blog:index")
+
+class UpdatePostView(UpdateView):
+    model = BlogPost
+    fields = ["content", "title"]
+    template_name = "blog/post.html"
+    success_url = reverse_lazy("blog:index")
 
 
-def change_nr_likes(request: HttpRequest) -> HttpResponse:
-    path_info = request.path_info
-    id = basename(normpath(path_info))
-    post = BlogPost.objects.get(id=id)
-    if path_info.find("dislike_post") != -1:
-        post.nr_likes -= 1
-    else:
-        post.nr_likes += 1
-    post.save()
 
-    return redirect("/b/")
+
+
+
+

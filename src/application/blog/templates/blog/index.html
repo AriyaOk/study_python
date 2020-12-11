@@ -8,17 +8,23 @@
 
     <h1>All posts</h1>
         {% for post  in object_list %}
-            <h2>{{ post.title }}</h2>
+            <a href="/b/post/{{post.pk}}/">{{ post.title }}</a>
             <p>{{ post.content }}</p>
             <p>{{ post.crested_at }}</p>
             <p>Likes: {{ post.nr_likes }}</p>
 
             <p>
-            <form method="post" action="/b/del_post/{{post.id}}/">
+            <form method="post" action="/b/post/{{post.pk}}/delete/">
                 <p>
                     <button type="submit">delete</button>
                     <button type="submit" formaction="/b/like_post/{{post.id}}/">like</button>
                     <button type="submit" formaction="/b/dislike_post/{{post.id}}/">dislike</button>
+                     {% csrf_token %}
+                </p>
+            </form>
+            <form method="get" action="/b/post/{{post.pk}}/update/">
+                <p>
+                    <button type="submit">update</button>
                 </p>
             {% csrf_token %}
             </form>
