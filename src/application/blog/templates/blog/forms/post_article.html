@@ -1,8 +1,7 @@
-{% if user.id == object.author.id %}
+<div class="post-form">
 <a href="{{ object.get_absolute_url }}">{{ object.title }}</a>
-{% endif %}
 
-{% if not user.id == object.author.id %}
+{% if not user == object.author %}
 <p {{ object.title }}</p>
 {% endif%}
 
@@ -11,7 +10,7 @@
     <p>Likes: {{ object.nr_likes }}</p>
     <p>user: {{ object.author.email }}</p>
 
-{% if user.id == object.author.id %}
+{% if user == object.author or user.is_superuser %}
     <p>
         <form method="post" action="{% url 'blog:delete' pk=object.pk %}">
             <p>
@@ -21,4 +20,6 @@
         </form>
     </p>
 {%endif%}
+
 </article>
+</div>>

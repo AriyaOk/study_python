@@ -101,7 +101,7 @@ if DEBUG:
     AUTH_PASSWORD_VALIDATORS = []
 
 LOGIN_URL = reverse_lazy("onboarding:sign-in")
-LOGIN_REDIRECT_URL = reverse_lazy("blog:all")
+LOGIN_REDIRECT_URL = reverse_lazy("landing:index")
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/

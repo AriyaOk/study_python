@@ -8,7 +8,7 @@ from application.onboarding.forms.sign_up import SignUpForm
 
 class SignUpView(FormView):
     form_class = SignUpForm
-    success_url = reverse_lazy("blog:all")
+    success_url = reverse_lazy("landing:index")
     template_name = "onboarding/sign-up.html"
 
     def form_valid(self, form):

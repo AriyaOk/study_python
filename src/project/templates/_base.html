@@ -1,7 +1,15 @@
 {% load static %}
 <!DOCTYPE html>
         <html>
-        <head>
+        <p>
+        {% if user.is_anonymous %}anon
+                <a>/</a> <a href={% url 'onboarding:sign-in' %}><span>sign-in</span></a>
+                <a>/</a> <a href={% url 'onboarding:sign-up' %}><span>sign-up</span></a>
+            {% else %}
+                {{ user.first_name }}&nbsp;{{ user.last_name }} &lt;{{ user.email }}&gt;
+                    <a>/</a> <a href={% url 'onboarding:sign-out' %}><span>sign-out</span></a>
+            {% endif %}
+
           <title>Z37</title>
           <meta charset="utf-8">
           <link rel="stylesheet" href="{% static 'styles/styles.css' %}">
