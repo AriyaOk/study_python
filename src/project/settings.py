@@ -2,6 +2,7 @@ import os
 from pathlib import Path
 
 import dj_database_url
+from django.urls import reverse_lazy
 from dynaconf import settings as dyn
 
 _this_file = Path(__file__).resolve()
@@ -36,6 +37,7 @@ INSTALLED_APPS = [
     "application.landing.apps.LandingConfig",
     "application.hello.apps.HelloConfig",
     "application.blog.apps.BlogConfig",
+    "application.onboarding.apps.OnboardingConfig",
 ]
 
 MIDDLEWARE = [
@@ -95,7 +97,11 @@ AUTH_PASSWORD_VALIDATORS = [
         "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",
     },
 ]
+if DEBUG:
+    AUTH_PASSWORD_VALIDATORS = []
 
+LOGIN_URL = reverse_lazy("onboarding:sign-in")
+LOGIN_REDIRECT_URL = reverse_lazy("blog:all")
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/

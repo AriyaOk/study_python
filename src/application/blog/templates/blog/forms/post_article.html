@@ -1,8 +1,17 @@
+{% if user.id == object.author.id %}
 <a href="{{ object.get_absolute_url }}">{{ object.title }}</a>
+{% endif %}
+
+{% if not user.id == object.author.id %}
+<p {{ object.title }}</p>
+{% endif%}
+
     <p>{{ object.content }}</p>
     <p>{{ object.crested_at }}</p>
     <p>Likes: {{ object.nr_likes }}</p>
+    <p>user: {{ object.author.email }}</p>
 
+{% if user.id == object.author.id %}
     <p>
         <form method="post" action="{% url 'blog:delete' pk=object.pk %}">
             <p>
@@ -11,4 +20,5 @@
             {% csrf_token %}
         </form>
     </p>
+{%endif%}
 </article>
