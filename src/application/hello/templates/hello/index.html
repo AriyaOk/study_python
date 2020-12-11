@@ -1,23 +1,12 @@
 {% extends "_base.html" %}
 
 {% block main %}
-<h2>Hello {{name_header}} !!!</h2>
-<h2>You in {{address_header}}</h2>
-<h2>About You: {{about_header}}</h2>
+<h2 id="greeting_display_id">Hello {{ name|default:"Anon" }} !!!</h2>
+<h2>You in {{ address|default:"XZ" }}</h2>
+<h2>About You: {{ about|default:"nosing" }}</h2>
 
-<form method="post" action="/h/hello/">
-    <p>
-        <label for="name_id" > Name:</label>
-        <input id="name_id" type="text" name="name" placeholder="Who are you" value="{{name_value}}">
-    </p>
-    <p>
-        <label for="address_id" > Address:</label>
-        <input id="address_id" type="text" name="address" placeholder="Where are you" value="{{address_value}}">
-    </p>
-    <p>
-        <label for="about_id" > About Me:</label>
-        <input id="about_id" type="text" name="about" placeholder="About Me" value="{{about_value}}">
-    </p>
+<form method="post" action="/h/">
+    {{ form.as_p }}
     <button id="submit_id" type="submit">Send</button>
     <button id="reset_id_" type="submit" formaction="/h/h_del/">Reset</button>
     {% csrf_token %}

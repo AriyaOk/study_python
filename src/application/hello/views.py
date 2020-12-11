@@ -1,46 +1,61 @@
-from django.http import HttpRequest
-from django.http import HttpResponse
-from django.shortcuts import redirect
-from django.shortcuts import render
+from typing import Dict
 
-# from django.contrib.sessions.models import Session
-
-
-def view_hello_index(request: HttpRequest) -> HttpResponse:
-
-    name = request.session.get("name")
-    address = request.session.get("address")
-    about = request.session.get("about")
-
-    context = {
-        "address_header": address or "XZ",
-        "address_value": address or "",
-        "name_header": name or "Anon",
-        "name_value": name or "",
-        "about_header": about or "no information",
-        "about_value": about or "",
-    }
-    response = render(request, "hello/index.html", context=context)
-    return response
+from django import forms
+from django.views.generic import FormView
+from django.views.generic import RedirectView
 
 
-def view_hello_greet(request: HttpRequest) -> HttpResponse:
-    name = request.POST.get("name")
-    address = request.POST.get("address")
-    about = request.POST.get("about")
-
-    request.session["name"] = name
-    request.session["address"] = address
-    request.session["about"] = about
-
-    return redirect("/h/")
+class HelloForm(forms.Form):
+    name = forms.CharField()
+    address = forms.CharField()
+    about = forms.CharField()
 
 
-def view_hello_reset(request: HttpRequest) -> HttpResponse:
+class HelloView(FormView):
+    template_name = "hello/index.html"
+    success_url = "/h/"
+    form_class = HelloForm
 
-    request.session.clear()
-    # session_key = request.session.session_key
-    # if session_key != None:
-    #    session = Session.objects.get(session_key=session_key)
-    #    Session.objects.filter(session_key=session).delete()
-    return redirect("/h/")
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        name = self.request.session.get("name")
+        address = self.request.session.get("address")
+        about = self.request.session.get("about")
+        context.update(
+            {
+                "name": name or "Anon",
+                "address": address or "XZ",
+                "about": about or "nosing",
+            }
+        )
+
+        return context
+
+    def get_initial(self, **kwargs):
+        return self.get_extended_context()
+
+    def get_extended_context(self, **kwargs) -> Dict:
+        name = self.request.session.get("name")
+        address = self.request.session.get("address")
+        about = self.request.session.get("about")
+        context = {
+            "address": address,
+            "name": name,
+            "about": about,
+        }
+        return context
+
+    def form_valid(self, form):
+        name = form.cleaned_data["name"]
+        address = form.cleaned_data["address"]
+        about = form.cleaned_data["about"]
+        self.request.session["name"] = name
+        self.request.session["address"] = address
+        self.request.session["about"] = about
+        return super().form_valid(form)
+
+
+class HelloReset(RedirectView):
+    def get_redirect_url(self, *args, **kwargs):
+        self.request.session.clear()
+        return "/h/"
