@@ -1,6 +1,7 @@
 from datetime import datetime
 
 from django.db import models
+from django.urls import reverse_lazy
 
 
 class BlogPost(models.Model):
@@ -11,3 +12,8 @@ class BlogPost(models.Model):
 
     class Meta:
         ordering = ["-crested_at"]
+
+    def get_absolute_url(self):
+        kwargs = {"pk": self.pk}
+        url = reverse_lazy("blog:post", kwargs=kwargs)
+        return url

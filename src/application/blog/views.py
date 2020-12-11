@@ -27,7 +27,7 @@ class PostForm(forms.ModelForm):
 
 
 class AllPostsView(ExtendedContextMixin, ListView):
-    template_name = "blog/index.html"
+    template_name = "blog/all_posts.html"
     model = BlogPost
 
     def get_extended_context(self) -> Dict:
@@ -40,29 +40,30 @@ class NewPostView(CreateView):
     http_method_names = ["post"]
     model = BlogPost
     fields = ["content", "title"]
-    success_url = reverse_lazy("blog:index")
+    success_url = reverse_lazy("blog:all")
 
 
 class DelAll(RedirectView):
     def get_redirect_url(self, *args, **kwargs):
         BlogPost.objects.all().delete()
-        return reverse_lazy("blog:index")
+        return reverse_lazy("blog:all")
 
 
 class SinglePostView(DetailView):
-    template_name = "blog/forms/post_.html"
+    fields = ["content", "title"]
+    template_name = "blog/post.html"
     model = BlogPost
 
 class DeletePostView(DeleteView):
     http_method_names = ["post"]
     model = BlogPost
-    success_url = reverse_lazy("blog:index")
+    success_url = reverse_lazy("blog:all")
 
 class UpdatePostView(UpdateView):
     model = BlogPost
     fields = ["content", "title"]
     template_name = "blog/post.html"
-    success_url = reverse_lazy("blog:index")
+    success_url = reverse_lazy("blog:all")
 
 
 
