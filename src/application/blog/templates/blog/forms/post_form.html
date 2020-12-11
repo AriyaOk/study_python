@@ -1,0 +1,17 @@
+<p>
+    <form method="post" action="{{ form_action_url }}">
+        <p>
+            <p><label> TitleE:</label><p>
+                {{ form.title }}
+            </p>
+        <p>
+            <p><label> Content:</label><p>
+                {{ form.content }}
+            </p>
+        <p>
+            <button id="submit_id" type="submit">save</button>
+        </p>
+        {% csrf_token %}
+    </form>
+    <hr>
+</p>
