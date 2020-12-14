@@ -19,3 +19,8 @@ input {
     background: aliceblue; /* Цвет фона */
     width: 30%; /* Ширина */
    }
+
+.post-form {
+    border: 3px solid #447e9b;
+    padding: 10px;
+}

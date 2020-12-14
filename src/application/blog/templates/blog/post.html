@@ -5,11 +5,11 @@
 {% block main %}
 
   {% include "blog/forms/post_article.html" %}
-
+{% if user == object.author or user.is_superuser %}
   {% with "Update" as form_action_name %}
     {% with object.get_absolute_url as form_action_url %}
       {% include "blog/forms/post_form.html" %}
     {% endwith %}
   {% endwith %}
-
+{%endif%}
 {% endblock %}

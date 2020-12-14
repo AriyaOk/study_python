@@ -1,23 +1,24 @@
 {% extends "_base.html" %}
 
 {% block main %}
-
-  {% with "Send" as form_action_name %}
-    {% url 'blog:new' as form_action_url %}
-    {% include "blog/forms/post_form.html" %}
-  {% endwith %}
-
+    {% if not  user.is_anonymous %}
+        {% with "Send" as form_action_name %}
+            {% url 'blog:new' as form_action_url %}
+            {% include "blog/forms/post_form.html" %}
+        {% endwith %}
+    {% endif %}
     <h1>All posts</h1>
+
         {% for object in object_list %}
             {% include "blog/forms/post_article.html" %}
         {% endfor %}
 
-    <form method="post" action="{% url 'blog:dell_all' %}">
-        {% csrf_token %}
-        <div class="post-form-controls">
-            <button type="submit">Del All</button>
-        </div>
-    </form>
+    {% if  user.is_superuser %}
+        <form method="post" action="{% url 'blog:dell_all' %}">
+            {% csrf_token %}
+             <button type="submit">Del All</button>
+        </form>
+    {% endif %}
 
 {% endblock %}
 
