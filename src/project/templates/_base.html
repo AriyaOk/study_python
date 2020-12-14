@@ -1,6 +1,7 @@
 {% load static %}
 <!DOCTYPE html>
         <html>
+        <p align='center'>This is a study project.</p>
         <p>
         {% if user.is_anonymous %}anon
                 <a>/</a> <a href={% url 'onboarding:sign-in' %}?next={{ request.get_full_path|urlencode }}><span>sign-in</span></a>
@@ -17,7 +18,7 @@
         </head>
         <body link="red" vlink="#cecece" alink="#ff0000" bgcolor="black">
         <h1>Z37 study project</h1>
-        <p align='center'>This is a study project.</p>
+
         <nav>
             <p><a href="/"><span>/</span></a></p>
             <p><a href="/h/"><span>/hello/</span></a></p>
