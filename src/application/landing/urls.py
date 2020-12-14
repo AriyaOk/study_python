@@ -6,5 +6,5 @@ from application.landing.views import IndexView
 app_name = LandingConfig.label
 
 urlpatterns = [
-    path("", IndexView.as_view(),name="index"),
+    path("", IndexView.as_view(), name="index"),
 ]

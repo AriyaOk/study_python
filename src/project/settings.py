@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     "application.hello.apps.HelloConfig",
     "application.blog.apps.BlogConfig",
     "application.onboarding.apps.OnboardingConfig",
+    "social_django",
 ]
 
 MIDDLEWARE = [
@@ -64,6 +65,7 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
+                "social_django.context_processors.backends",  # Добавил эту строку
             ],
         },
     },
@@ -131,3 +133,13 @@ STATICFILES_DIRS = [
 
 if not DEBUG:
     STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+
+SOCIAL_AUTH_POSTGRES_JSONFIELD = True
+AUTHENTICATION_BACKENDS = (
+    "social_core.backends.vk.VKOAuth2",  # бекенд авторизации через ВКонтакте
+    "django.contrib.auth.backends.ModelBackend",  # бекенд классической аутентификации, чтобы работала авторизация через обычный логин и пароль
+)
+SOCIAL_AUTH_VK_OAUTH2_KEY = (
+    "96f829d796f829d796f829d763968d592f996f896f829d7c92c82dee2dc8b013ed5a4ce"
+)
+SOCIAL_AUTH_VK_OAUTH2_SECRET = "7jhanAMZtdaEZ3dAhx0z"

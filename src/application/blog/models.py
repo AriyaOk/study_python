@@ -6,6 +6,7 @@ from django.urls import reverse_lazy
 
 User = get_user_model()
 
+
 class BlogPost(models.Model):
     title = models.TextField(null=True, blank=True, unique=True)
     content = models.TextField(null=True, blank=True)

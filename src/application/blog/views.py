@@ -1,20 +1,13 @@
-from os.path import basename
-from os.path import normpath
 from typing import Dict
 
 from django import forms
-from django.http import HttpRequest
-from django.http import HttpResponse
-from django.shortcuts import get_object_or_404
-from django.shortcuts import redirect
-from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import CreateView
 from django.views.generic import DeleteView
-from django.views.generic import DetailView
 from django.views.generic import ListView
 from django.views.generic import RedirectView
 from django.views.generic import UpdateView
+from django.views.generic.detail import BaseDetailView
 
 from application.blog.models import BlogPost
 from framework.mixins import ExtendedContextMixin

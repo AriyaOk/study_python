@@ -20,6 +20,7 @@ psycopg2-binary = "*"
 dj-database-url = "*"
 django = "*"
 whitenoise = "*"
+social-auth-app-django = "*"
 
 [requires]
 python_version = "3.9"
