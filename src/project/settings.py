@@ -136,7 +136,7 @@ if not DEBUG:
 
 SOCIAL_AUTH_POSTGRES_JSONFIELD = True
 AUTHENTICATION_BACKENDS = (
-    "social_core.backends.telegram.TelegramAuth", #Telegram
+    "social_core.backends.telegram.TelegramAuth",  # Telegram
     "social_core.backends.vk.VKOAuth2",  # бекенд авторизации через ВКонтакте
     "django.contrib.auth.backends.ModelBackend",  # бекенд классической аутентификации, чтобы работала авторизация через обычный логин и пароль
 )
@@ -145,5 +145,4 @@ SOCIAL_AUTH_VK_OAUTH2_KEY = (
 )
 SOCIAL_AUTH_VK_OAUTH2_SECRET = "7jhanAMZtdaEZ3dAhx0z"
 
-SOCIAL_AUTH_TELEGRAM_BOT_TOKEN = ('1459498315:AAFv5cBE1IwzDJZo9mzYsW5FoKP6wM1Opk4')
-
+SOCIAL_AUTH_TELEGRAM_BOT_TOKEN = "1459498315:AAFv5cBE1IwzDJZo9mzYsW5FoKP6wM1Opk4"
