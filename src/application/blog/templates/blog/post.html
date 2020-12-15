@@ -1,9 +1,11 @@
 {% extends "_base.html" %}
+{% load static %}
 
 {% block title %}/b/{{ object.pk }}{% endblock %}
 
 {% block main %}
 
+<script src="{% static 'blog/scripts/blog.js' %}"></script>
   {% include "blog/forms/post_article.html" %}
 {% if user == object.author or user.is_superuser %}
   {% with "Update" as form_action_name %}

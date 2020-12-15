@@ -7,7 +7,7 @@
 
     <p>{{ object.content }}</p>
     <p>{{ object.crested_at }}</p>
-    <p>Likes: {{ object.nr_likes }}</p>
+    <span class="likes" onclick="like(this, {{ object.pk }});">{{ object.nr_likes }}</span>
     <p>user: {{ object.author.email }}</p>
 
 {% if user == object.author or user.is_superuser %}
@@ -19,6 +19,7 @@
             {% csrf_token %}
         </form>
     </p>
+
 {%endif%}
 
 </article>

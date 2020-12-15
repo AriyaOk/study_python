@@ -24,3 +24,21 @@ input {
     border: 3px solid #447e9b;
     padding: 10px;
 }
+
+.likes {
+  grid-column: 9/11;
+  grid-row: 10/11;
+  user-select: none;
+}
+
+.likes::before {
+  content: "💛\00a0";
+}
+
+.likes:active {
+  color: red;
+}
+
+.likes:active::before {
+  content: "❤️\00a0";
+}
