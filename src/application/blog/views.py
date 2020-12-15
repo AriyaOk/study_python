@@ -1,13 +1,16 @@
 from typing import Dict
 
 from django import forms
+from django.http import HttpResponse, JsonResponse
 from django.urls import reverse_lazy
+from django.utils.decorators import method_decorator
+from django.views import View
+from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import CreateView
 from django.views.generic import DeleteView
 from django.views.generic import ListView
 from django.views.generic import RedirectView
 from django.views.generic import UpdateView
-from django.views.generic.detail import BaseDetailView
 
 from application.blog.models import BlogPost
 from framework.mixins import ExtendedContextMixin
@@ -66,3 +69,29 @@ class PostView(UpdateView):
     def form_valid(self, form):
         self.object.edited = True
         return super().form_valid(form)
+
+@method_decorator(csrf_exempt, name='dispatch')
+class PostLike(View):
+
+    def get(self, request, *args, **kwargs):
+        nr = BlogPost.objects.get(pk=kwargs.get('pk')).nr_likes
+        payload = str(nr)
+        return HttpResponse(payload,content_type="text/plain")
+
+    def post(self, request, *args, **kwargs):
+        payload = {"ok": False, "nr_likes": 0, "reason":"unknown reason"}
+        try:
+            pk = kwargs.get("pk",0)
+            post = BlogPost.objects.get(pk=pk)
+
+        except Exception:
+            payload.update({"reason":"post not found"})
+        else:
+            post.nr_likes += 1
+            post.save()
+            post = BlogPost.objects.get(pk=pk)
+            payload.update({"ok": True, "nr_likes": post.nr_likes,"reason":None})
+
+        return JsonResponse(payload)
+
+
