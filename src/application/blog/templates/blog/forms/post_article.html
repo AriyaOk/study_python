@@ -11,7 +11,7 @@
     {% if user.is_anonymous or user == object.author %}
         <span class="anonlikes" >{{ object.nr_likes }}</span>
     {% else %}
-        <span {% total_posts user object %} onclick="like(this, {{ object.pk }});">{{ object.nr_likes }}</span>
+        <span {% is_user_like user object %} onclick="like(this, {{ object.pk }});">{{ object.nr_likes }}</span>
    {% endif %}
 
     <p>user: {{ object.author.email }}</p>

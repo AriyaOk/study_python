@@ -35,7 +35,7 @@ input {
   }
 
 .nolikes:active::before {
-  content: "💛\00a0";
+  content: "💛";
 }
 
 .likes {
@@ -45,11 +45,11 @@ input {
 }
 
 .likes::before {
-  content: "💛\00a0";
+  content: "❤️";
 }
 
 .likes:active::before {
-  content: "❤️\00a0";
+  content: "💛";
 }
 
 .anonlikes {
@@ -58,9 +58,6 @@ input {
   }
 
 .anonlikes::before {
-  content: "🔒";
+  content: "🔒 likes: ";
   }
 
-.anonlikes:active::before {
-  content: "🔒";
-}
