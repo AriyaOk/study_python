@@ -81,7 +81,12 @@ class PostLike(View):
         return HttpResponse(payload, content_type="text/plain")
 
     def post(self, request, *args, **kwargs):
-        payload = {"ok": False, "nr_likes": 0, "is_like": 0, "reason": "unknown reason"}
+        payload = {
+            "ok": False,
+            "nr_likes": 0,
+            "is_like": False,
+            "reason": "unknown reason",
+        }
         try:
             pk = kwargs.get("pk", 0)
             post = BlogPost.objects.get(pk=pk)
@@ -99,13 +104,13 @@ class PostLike(View):
                 post.nr_likes += 1
                 post.save()
 
-                is_like = 1
+                is_like = True
             else:
                 userlike.delete()
 
                 post.nr_likes -= 1
                 post.save()
-                is_like = 0
+                is_like = False
             post = BlogPost.objects.get(pk=pk)
             payload.update(
                 {

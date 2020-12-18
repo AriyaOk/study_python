@@ -20,12 +20,11 @@
     <p>
         <form method="post" action="{% url 'blog:delete' pk=object.pk %}">
             <p>
-                <button type="submit">delete</button>
+                <button type="submit">❌</button>
            </p>
             {% csrf_token %}
         </form>
     </p>
-
 {%endif%}
 
 </article>
