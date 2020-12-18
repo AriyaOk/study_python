@@ -14,6 +14,7 @@ from django.views.generic import RedirectView
 from django.views.generic import UpdateView
 
 from application.blog.models import BlogPost
+from application.blog.models import UserLike
 from framework.mixins import ExtendedContextMixin
 
 
@@ -80,17 +81,39 @@ class PostLike(View):
         return HttpResponse(payload, content_type="text/plain")
 
     def post(self, request, *args, **kwargs):
-        payload = {"ok": False, "nr_likes": 0, "reason": "unknown reason"}
+        payload = {"ok": False, "nr_likes": 0, "is_like": 0, "reason": "unknown reason"}
         try:
             pk = kwargs.get("pk", 0)
             post = BlogPost.objects.get(pk=pk)
+            user = self.request.user
 
         except Exception:
             payload.update({"reason": "post not found"})
         else:
-            post.nr_likes += 1
-            post.save()
+            try:
+                userlike = UserLike.objects.get(user=user, post=post)
+            except UserLike.DoesNotExist:
+                userlike = UserLike(user=user, post=post)
+                userlike.save()
+
+                post.nr_likes += 1
+                post.save()
+
+                is_like = 1
+            else:
+                userlike.delete()
+
+                post.nr_likes -= 1
+                post.save()
+                is_like = 0
             post = BlogPost.objects.get(pk=pk)
-            payload.update({"ok": True, "nr_likes": post.nr_likes, "reason": None})
+            payload.update(
+                {
+                    "ok": True,
+                    "nr_likes": post.nr_likes,
+                    "is_like": is_like,
+                    "reason": None,
+                }
+            )
 
         return JsonResponse(payload)

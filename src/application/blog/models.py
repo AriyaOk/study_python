@@ -22,3 +22,8 @@ class BlogPost(models.Model):
         kwargs = {"pk": self.pk}
         url = reverse_lazy("blog:post", kwargs=kwargs)
         return url
+
+
+class UserLike(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    post = models.ForeignKey(BlogPost, on_delete=models.CASCADE)

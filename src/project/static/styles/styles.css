@@ -25,6 +25,19 @@ input {
     padding: 10px;
 }
 
+.nolikes {
+  grid-column: 9/11;
+  grid-row: 10/11;
+  }
+
+.nolikes::before {
+  content: "🤍";
+  }
+
+.nolikes:active::before {
+  content: "💛\00a0";
+}
+
 .likes {
   grid-column: 9/11;
   grid-row: 10/11;
@@ -35,10 +48,19 @@ input {
   content: "💛\00a0";
 }
 
-.likes:active {
-  color: red;
-}
-
 .likes:active::before {
   content: "❤️\00a0";
+}
+
+.anonlikes {
+  grid-column: 9/11;
+  grid-row: 10/11;
+  }
+
+.anonlikes::before {
+  content: "🔒";
+  }
+
+.anonlikes:active::before {
+  content: "🔒";
 }
