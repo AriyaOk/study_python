@@ -9,7 +9,7 @@ const like = function (element, post_id) {
                 resp_payload => {
                     if (resp_payload.ok) {
                         element.textContent = resp_payload.nr_likes;
-                        if (resp_payload.is_like===1){element.className = "likes";}
+                        if (resp_payload.is_like){element.className = "likes";}
                         else{element.className = "nolikes"}
 
                     } else {
