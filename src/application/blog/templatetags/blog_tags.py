@@ -7,7 +7,7 @@ register = template.Library()
 
 
 @register.simple_tag
-def total_posts(user, post):
+def is_user_like(user, post):
     try:
         userlike = UserLike.objects.get(user=user, post=post)
     except UserLike.DoesNotExist:
