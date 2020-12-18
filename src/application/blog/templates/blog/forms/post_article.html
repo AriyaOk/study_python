@@ -1,3 +1,4 @@
+{% load blog_tags %}
 <div class="post-form">
 <a href="{{ object.get_absolute_url }}">{{ object.title }}</a>
 
@@ -7,7 +8,12 @@
 
     <p>{{ object.content }}</p>
     <p>{{ object.crested_at }}</p>
-    <span class="likes" onclick="like(this, {{ object.pk }});">{{ object.nr_likes }}</span>
+    {% if user.is_anonymous or user == object.author %}
+        <span class="anonlikes" >{{ object.nr_likes }}</span>
+    {% else %}
+        <span {% total_posts user object %} onclick="like(this, {{ object.pk }});">{{ object.nr_likes }}</span>
+   {% endif %}
+
     <p>user: {{ object.author.email }}</p>
 
 {% if user == object.author or user.is_superuser %}
