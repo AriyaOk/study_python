@@ -101,21 +101,22 @@ class PostLike(View):
                 userlike = UserLike(user=user, post=post)
                 userlike.save()
 
-                post.nr_likes += 1
-                post.save()
+                # post.nr_likes += 1
+                # post.save()
 
                 is_like = True
             else:
                 userlike.delete()
 
-                post.nr_likes -= 1
-                post.save()
+                # post.nr_likes -= 1
+                # post.save()
                 is_like = False
             post = BlogPost.objects.get(pk=pk)
+            nr_like = UserLike.objects.filter(post=post).count()
             payload.update(
                 {
                     "ok": True,
-                    "nr_likes": post.nr_likes,
+                    "nr_likes": nr_like,
                     "is_like": is_like,
                     "reason": None,
                 }

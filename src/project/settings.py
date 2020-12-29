@@ -21,7 +21,7 @@ ALLOWED_HOSTS = [
     "localhost",
     "127.0.0.1",
     dyn.HOST,
-]
+] + list(dyn.ALLOWED_HOSTS or [])
 
 
 # Application definition
