@@ -15,7 +15,7 @@
     {% else %}
         <span {% is_user_like_ user object %} onclick="like(this, {{ object.pk }});">{% nr_likes object %}</span>
    {% endif %}
-
+    <p> 👁‍ {{ object.nr_views }} </p>
     <p>user: {{ object.author.email }}</p>
 
 {% if user == object.author or user.is_superuser %}

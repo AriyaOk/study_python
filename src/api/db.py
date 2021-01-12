@@ -33,10 +33,10 @@ class Post(Model):
 
     id = Column(Integer, primary_key=True)
     author_id = Column(Integer)
-    nr_likes = Column(Integer, default=0)
+    # nr_likes = Column(Integer, default=0)
     content = Column(Text)
-    # title = Column(Text)
-    # nr_views = Column(Integer, nullable=False, default=0)
+    title = Column(Text)
+    nr_views = Column(Integer, nullable=False, default=0)
     crested_at = Column(DateTime, nullable=False, default=lambda: now().datetime)
     # edited = Column(Boolean, nullable=False, default=False)
     likers = relationship("BlogPostLike", backref="post")
@@ -77,7 +77,7 @@ def create_post(session: Session, data: NewPostSchema) -> Post:
     post = Post(
         author_id=data.author_id,
         content=data.content,
-        # title=data.title,
+        title=data.title,
     )
     session.add(post)
     session.commit()
@@ -112,11 +112,23 @@ def get_single_post(session: Session, post_id: int) -> Optional[Post]:
 
 @using_session
 def get_all_users(session: Session) -> List[User]:
-    result = session.query(User).all()
+    result = (
+        session.query(User, func.count(BlogPostLike.id))
+        .outerjoin(User.liked_posts)
+        .group_by(User.id)
+        .all()
+    )
     return list(result)
 
 
 @using_session
 def get_single_user(session: Session, user_id: int) -> Optional[User]:
-    result = session.query(User).filter(User.id == user_id).first()
+    result = (
+        session.query(User, func.count(BlogPostLike.id))
+        .outerjoin(User.liked_posts)
+        .filter(User.id == user_id)
+        .group_by(User.id)
+        .first()
+    )
+
     return result

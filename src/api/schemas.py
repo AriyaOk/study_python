@@ -16,6 +16,7 @@ class UserSchema(BaseModel):
     id: int
     username: str
     email: str
+    liked_posts: int
 
 
 UserListSchema = List[UserSchema]
@@ -24,12 +25,13 @@ UserListSchema = List[UserSchema]
 class NewPostSchema(BaseModel):
     author_id: int
     content: str
-    # title: str
+    title: str
 
 
 class PostSchema(NewPostSchema):
     id: int
     nr_likes: int
+    nr_views: int
 
 
 PostListSchema = List[PostSchema]

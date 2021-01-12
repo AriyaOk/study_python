@@ -27,8 +27,9 @@ async def new_post(payload: schemas.NewPostApiSchema) -> schemas.PostApiSchema:
         id=obj.id,
         author_id=obj.author_id,
         content=obj.content,
-        # title=obj.title,
+        title=obj.title,
         nr_likes=nr_likes,
+        nr_views=obj.nr_views,
     )
 
     response = schemas.PostApiSchema(data=post)
@@ -45,7 +46,8 @@ async def all_posts() -> schemas.PostListApiSchema:
             id=post.id,
             author_id=post.author_id,
             content=post.content,
-            # title=post.title,
+            title=post.title,
+            nr_views=post.nr_views,
             nr_likes=nr_likes,
         )
         for (post, nr_likes) in objects
@@ -66,8 +68,9 @@ async def single_post(post_id: int) -> schemas.PostApiSchema:
             id=obj.id,
             author_id=obj.author_id,
             content=obj.content,
-            # title=obj.title,
+            title=obj.title,
             nr_likes=nr_likes,
+            nr_views=obj.nr_views,
         )
     else:
         response_kwargs["errors"] = [f"post with id={post_id} does not exist"]
@@ -86,8 +89,9 @@ async def all_users() -> schemas.UserListApiSchema:
             id=user.id,
             username=user.username,
             email=user.email,
+            liked_posts=liked_posts,
         )
-        for user in objects
+        for (user, liked_posts) in objects
     ]
 
     response = schemas.UserListApiSchema(data=users)
@@ -97,18 +101,21 @@ async def all_users() -> schemas.UserListApiSchema:
 
 @app.get(f"{API_URL}/user/{{user_id}}")
 async def single_user(user_id: int) -> schemas.UserApiSchema:
-    response = schemas.UserApiSchema()
+    response_kwargs = {}
+    # response = schemas.UserApiSchema()
 
-    obj = db.get_single_user(user_id)
+    (obj, liked_posts) = db.get_single_user(user_id)
     if obj:
-        response.data = schemas.UserSchema(
+        response_kwargs["data"] = schemas.UserSchema(
             id=obj.id,
             username=obj.username,
             email=obj.email,
+            liked_posts=liked_posts,
         )
     else:
-        response.errors = [f"user with id={user_id} does not exist"]
+        response_kwargs["errors"] = [f"user with id={user_id} does not exist"]
 
+    response = schemas.UserApiSchema(**response_kwargs)
     return response
 
 

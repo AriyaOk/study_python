@@ -8,10 +8,11 @@ User = get_user_model()
 
 
 class BlogPost(models.Model):
-    title = models.TextField(null=True, blank=True, unique=True)
+    title = models.TextField(null=True, blank=True)
     content = models.TextField(null=True, blank=True)
     crested_at = models.DateTimeField(default=datetime.now)
-    nr_likes = models.IntegerField(default=0)
+    # nr_likes = models.IntegerField(default=0)
+    nr_views = models.IntegerField(default=0)
 
     author = models.ForeignKey(User, on_delete=models.CASCADE)
 
