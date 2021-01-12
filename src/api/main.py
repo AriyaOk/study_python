@@ -122,7 +122,7 @@ async def single_user(user_id: int) -> schemas.UserApiSchema:
 if __name__ == "__main__":
     import uvicorn
 
-    uvicorn.run(app, host="127.0.0.1", port=8008)
+    uvicorn.run(app, host="127.0.0.1", port=8000)
 
 
 """async def like(post_id: int) -> MyApiResponseSchema:
