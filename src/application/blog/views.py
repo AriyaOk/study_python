@@ -1,6 +1,9 @@
+from functools import wraps
 from typing import Dict
 
 from django import forms
+from django.db import transaction
+from django.db.models import F
 from django.http import HttpResponse
 from django.http import JsonResponse
 from django.urls import reverse_lazy
@@ -31,6 +34,7 @@ class PostForm(forms.ModelForm):
 class AllPostsView(ExtendedContextMixin, ListView):
     template_name = "blog/all_posts.html"
     model = BlogPost
+
 
     def get_extended_context(self) -> Dict:
         context = {"form": PostForm()}
@@ -123,3 +127,4 @@ class PostLike(View):
             )
 
         return JsonResponse(payload)
+
